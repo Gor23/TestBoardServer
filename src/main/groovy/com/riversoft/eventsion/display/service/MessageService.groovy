@@ -1,6 +1,6 @@
 package com.riversoft.eventsion.display.service
 
-import com.riversoft.eventsion.display.repository.SessionModel
+import com.riversoft.eventsion.display.models.SessionModel
 import com.riversoft.eventsion.display.repository.SessionRepository
 import groovy.util.logging.Slf4j
 import javagrinko.spring.tcp.Connection
@@ -30,7 +30,7 @@ class MessageService {
     }
 
     void addSession (String mac, Connection connection){
-        sessionRepository.sesions.put(mac, new SessionModel(
+        sessionRepository.sessions.put(mac, new SessionModel(
                 mac:mac,
                 connection:connection
         ))
@@ -39,7 +39,7 @@ class MessageService {
     List<SessionModel> getAllSesions (){
 
         List<SessionModel> models = []
-        sessionRepository.sesions.each {
+        sessionRepository.sessions.each {
             models.add(it.value)
         }
         return models

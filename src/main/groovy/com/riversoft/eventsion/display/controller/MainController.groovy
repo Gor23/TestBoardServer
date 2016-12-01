@@ -1,7 +1,8 @@
 package com.riversoft.eventsion.display.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.riversoft.eventsion.display.repository.InitModel
+import com.riversoft.eventsion.display.models.SessionModel
+import com.riversoft.eventsion.display.repository.SessionRepository
 import com.riversoft.eventsion.display.service.MessageService
 import groovy.util.logging.Slf4j
 import javagrinko.spring.tcp.Connection
@@ -18,24 +19,27 @@ class MainController {
     @Autowired
     ObjectMapper mapper
 
+    @Autowired
+    SessionRepository sessionRepository
+
     public void receiveData(Connection connection, byte[] data) {
-        String s = new String(data);
-        log.info("Input data: ${data.toString()}")
-        System.out.println("Input data: ${s}")
+        String s = new String(data)
+        log.debug("Message ${s}")
         if (s.contains("mac")) {
-            InitModel initModel = mapper.readValue(s, InitModel)
-            messageService.addSession(initModel.mac, connection)
-            //connection.send("ok".getBytes())
+            sessionRepository.sessions.put(s, new SessionModel(
+                    connection: connection,
+                    mac: s
+            ))
+            connection.send("ok".getBytes())
         }
+        String answer = "200"
     }
 
     public void connect(Connection connection) {
-        System.out.println("New connection " + connection.getAddress().getCanonicalHostName());
+        System.out.println("New connection " + connection.getAddress().getCanonicalHostName())
     }
 
     public void disconnect(Connection connection) {
-        System.out.println("Disconnect " + connection.getAddress().getCanonicalHostName());
+        System.out.println("Disconnect " + connection.getAddress().getCanonicalHostName())
     }
-
-
 }

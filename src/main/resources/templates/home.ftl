@@ -1,23 +1,49 @@
 <html>
 <body>
+
 <div class="container">
     <div class="row">
+        <label> ${sessions}
         <div class="col-sm-12 content">
-            <h4 class="text-center">Тест табло</h4>
+            <h4 class="text-center">Тестовый сервер для табло</h4>
             <br>
-            <h4 class="text-center">"{"type":"MESSAGE","period":null,"team_name_first":"Cats","team_name_second":"Raccoons","score_first":1,"score_second":6,"action_type":"GOAL"}"</h4>
             <br>
-            <form  id="form" class="form-inline text-center" method="post" modelAttribute="message" action="/" name="send">
+            <form id="form" class="form-inline text-center" method="post" modelAttribute="message" action="football"
+                  name="sendForm">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="message" id="message" placeholder="Сообщение"/>
+                    <input class="form-control" class="btn btn-default" type="submit" name="sendButton" id="send"
+                           value="Футбол">
                 </div>
+            </form>
+            <br>
+            <br>
+            <form id="form" class="form-inline text-center" method="post" modelAttribute="message" action="tenis"
+                  name="sendForm">
                 <div class="form-group">
-                    <input class="form-control" class="btn btn-default" type="submit"  name="find" id="send" value="Отослать" >
+                    <input class="form-control" class="btn btn-default" type="submit" name="sendButton" id="send"
+                           value="Тенис">
                 </div>
-                <br>
-                <br>
+            </form>
+            <br>
+            <br>
+            <form id="form" class="form-inline text-center" method="post" modelAttribute="message" action="logo"
+                  name="sendForm">
+                <div class="form-group">
+                    <input class="form-control" class="btn btn-default" type="submit" name="sendButton" id="send"
+                           value="Лого">
+                </div>
+            </form>
+            <br>
+            <br>
+            <form id="form" class="form-inline text-center" method="post" modelAttribute="message" action="winner"
+                  name="sendForm">
+                <div class="form-group">
+                    <input class="form-control" class="btn btn-default" type="submit" name="sendButton" id="send"
+                           value="Победитель">
+                </div>
             </form>
         </div>
-        <div class="col-sm-6 content">
+    </div>
+
 </body>
 </html>
