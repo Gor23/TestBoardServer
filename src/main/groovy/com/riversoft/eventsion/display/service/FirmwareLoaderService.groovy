@@ -5,7 +5,7 @@ import groovy.util.logging.Slf4j
 import org.apache.tomcat.util.buf.HexUtils
 import org.springframework.stereotype.Service
 
-
+import javax.annotation.PostConstruct
 import java.nio.file.FileSystems
 import java.nio.file.Files
 import java.nio.file.Path
@@ -16,7 +16,7 @@ import java.nio.file.Path
 class FirmwareLoaderService {
 
     short page = 0
-    String path = "/home/gor/tabloMaster.bin"
+    String path = "C:\\Users\\IGOR\\git\\f103c\\tabloMaster\\Debug\\tabloMaster.bin"
     Path p = FileSystems.getDefault().getPath(path)
     byte[] fileData = Files.readAllBytes(p)
     byte pageSize = 127

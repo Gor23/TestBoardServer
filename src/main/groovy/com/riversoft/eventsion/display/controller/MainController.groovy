@@ -3,6 +3,7 @@ package com.riversoft.eventsion.display.controller
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.riversoft.eventsion.display.models.SessionModel
 import com.riversoft.eventsion.display.repository.SessionRepository
+import com.riversoft.eventsion.display.service.FirmwareLoaderService
 import com.riversoft.eventsion.display.service.MessageService
 import groovy.util.logging.Slf4j
 import javagrinko.spring.tcp.Connection
@@ -22,15 +23,24 @@ class MainController {
     @Autowired
     SessionRepository sessionRepository
 
+    @Autowired
+    FirmwareLoaderService firmwareLoaderService
+
+
+
     public void receiveData(Connection connection, byte[] data) {
         String s = new String(data)
+        String message
         log.debug("Message ${s}")
         if (s.contains("mac")) {
             sessionRepository.sessions.put(s, new SessionModel(
                     connection: connection,
                     mac: s
             ))
-            connection.send("ok".getBytes())
+            message = mapper.writeValueAsString(firmwareLoaderService.loadFirmware(true))
+            connection.send(message.getBytes())
+            //connection.send("ok".getBytes())
+
         }
         String answer = "200"
     }
