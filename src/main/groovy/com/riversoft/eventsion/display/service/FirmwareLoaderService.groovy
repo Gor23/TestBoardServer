@@ -60,6 +60,7 @@ class FirmwareLoaderService {
         println(HexUtils.toHexString(outArray))
         println("Page number ${page}")
         println("Page length ${length}")
+        println ("Is last page ${last}")
         page++
         return model
     }
